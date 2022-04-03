@@ -2,3 +2,13 @@ extends layout
 
 block content
     h1.header WALKER MANEGEMENT SYSTEM
+    
+    .main_content 
+        .left 
+            p The Workerks Management Application is built to add, update and remove workers by the user. Done by 00015003. 
+            br
+            p Click the Button below to see all the workers
+            br
+            a.workers_btn(href="/workers") Workers
+        .right
+            img.main_img(src="../static/imgs/workers.jpg", alt="workers")

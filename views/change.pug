@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    if user == null 
+    if worker == null 
         form.formCreate(method="POST")
             label(for='name') Name:
             input.name(type='text', id='name' placeholder='John Doe' name='name')
@@ -12,20 +12,20 @@ block content
             label Gender:
                 input.gender(type='radio', id='male', name='gender', value='male' )
                 label(for='gender') Male
-                input.gender(type='radio', id='female', name='gender', value='female', checked = true)
+                input.gender(type='radio', id='female', name='gender', value='female')
                 label(for='gender') Female
             button.btn Add
     else
         form.formCreate(method="POST")
             label(for='name') Name:
-            input.name(type='text', id='name' name='name' value=`${user.name}`)
+            input.name(type='text', id='name' name='name' value=`${worker.name}`)
             label(for='email') Email:
-            input.email(type='email', id='email' placeholder='JohnDoe@gmail.com' name='email' value=`${user.email}`)
+            input.email(type='email', id='email' placeholder='JohnDoe@gmail.com' name='email' value=`${worker.email}`)
             label(for='age') Age:
-            input.age(type='number', name='age', id='age', placeholder='20' value=`${user.age}`)
+            input.age(type='number', name='age', id='age', placeholder='20' value=`${worker.age}`)
             label Gender:
-                input.gender(type='radio', id='male', name='gender', value='male')
+                input.gender(type='radio', id='male', name='gender', value='male', checked = `${worker.gender === "male" }` )
                 label(for='gender') Male
-                input.gender(type='radio', id='female', name='gender', value='female')
+                input.gender(type='radio', id='female', name='gender', value='female', checked = `${worker.gender === "female" }`)
                 label(for='gender') Female
             button.btn Save

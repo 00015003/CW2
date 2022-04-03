@@ -2,9 +2,9 @@ extends layout.pug
 
 block content
     
-    a.add(href='/add') New user 
-    .users
-        if users.length
+    a.add(href='/add') New worker 
+    .workers
+        if workers.length
                 table
                     tr 
                         th Name 
@@ -13,17 +13,17 @@ block content
                         th Gender
                         th Change
                         th Delete
-                    each user in users
+                    each worker in workers
                         tr
-                            td #{ user.name}
-                            td #{ user.email}
-                            td #{ user.age}
-                            td #{ user.gender}
+                            td #{ worker.name}
+                            td #{ worker.email}
+                            td #{ worker.age}
+                            td #{ worker.gender}
                             td
-                                a(href=`${ user.id}/update`)
+                                a(href=`${ worker.id}/update`)
                                     i.edit_img.fa-solid.fa-pen-to-square
                             td
-                                a(href=`${ user.id }/delete`)
+                                a(href=`${ worker.id }/delete`)
                                     i.delete_img.fa-solid.fa-trash
         else
-            p Please add some user to database 
+            p.h1 Please add some worker to database 

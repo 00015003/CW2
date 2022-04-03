@@ -17,8 +17,8 @@ app.get("/workers", (req, res) => {
   fs.readFile("./data/db.json", (err, data) => {
     if (err) throw err;
 
-    const users = JSON.parse(data);
-    res.render("workers", { users: users });
+    const workers = JSON.parse(data);
+    res.render("workers", { workers: workers });
   });
 });
 
@@ -41,9 +41,9 @@ app.post('/add', (req, res) => {
     fs.readFile("./data/db.json", (err, data) => {
       if (err) throw err;
 
-      const users = JSON.parse(data);
+      const workers = JSON.parse(data);
 
-      const user = {
+      const worker = {
         id: id(),
         name: formCreate.name,
         email: formCreate.email,
@@ -51,14 +51,13 @@ app.post('/add', (req, res) => {
         gender: formCreate.gender
       };
 
-      users.push(user);
-      console.log(user)
-      fs.writeFile("./data/db.json", JSON.stringify(users), (err) => {
+      workers.push(worker);
+      console.log(worker)
+      fs.writeFile("./data/db.json", JSON.stringify(workers), (err) => {
         if (err) throw err;
 
         fs.readFile("./data/db.json", (err, data) => {
          if (err) throw err;
-         const users = JSON.parse(data);
 
         res.render("change");
         });
@@ -74,14 +73,14 @@ app.get("/:id/delete", (req, res) => {
   fs.readFile("./data/db.json", (err, data) => {
     if (err) throw err;
 
-    const users = JSON.parse(data);
-    const filterUser = users.filter((user) => user.id != id);
+    const workers = JSON.parse(data);
+    const filterworker = workers.filter((worker) => worker.id != id);
 
-    fs.writeFile("./data/db.json", JSON.stringify(filterUser), (err) => {
+    fs.writeFile("./data/db.json", JSON.stringify(filterworker), (err) => {
       if (err) throw err;
-      res.render('main', { users: filterUser, deleted: true });
+      res.render('workers', { workers: filterworker, deleted: true });
     });
-    res.redirect('/');
+    res.redirect('/workers');
   });
 });
 
@@ -89,10 +88,9 @@ app.get('/:id/update', (req, res) => {
   fs.readFile("./data/db.json", (err, data) => {
     if(err) throw error
 
-    const users = JSON.parse(data)
-    const user = users.filter(user => user.id == req.params.id)[0]
-    res.render('change', {user: user})
-    console.log(user)
+    const workers = JSON.parse(data)
+    const worker = workers.filter(worker => worker.id == req.params.id)[0]
+    res.render('change', {worker: worker})
   })
 })
 
@@ -102,12 +100,12 @@ app.post("/:id/update", (req, res) => {
     fs.readFile("./data/db.json", (err, data) => {
       if (err) throw err;
 
-      const users = JSON.parse(data);
-      const updated = users.filter(user => user.id != id) || []
+      const workers = JSON.parse(data);
+      const updated = workers.filter(worker => worker.id != id) || []
 
-      let user = users.filter(user => user.id == id)[0]
+      let worker = workers.filter(worker => worker.id == id)[0]
 
-      user = {
+      worker = {
         id: id,
         name: req.body.name,
         email: req.body.email,
@@ -115,16 +113,16 @@ app.post("/:id/update", (req, res) => {
         gender: req.body.gender
       };
 
-      updated.push(user);
+      updated.push(worker);
       fs.writeFile("./data/db.json", JSON.stringify(updated), (err) => {
         if (err) throw err;
 
         fs.readFile("./data/db.json", (err, data) => {
          if (err) throw err;
 
-        res.render("main");
+        res.render("workers");
         });
-        res.redirect('/');
+        res.redirect('/workers');
       });
     });
   });
