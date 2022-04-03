@@ -10,46 +10,53 @@ app.use("/static", express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  fs.readFile("./data/todos.json", (err, data) => {
+  fs.readFile("./data/db.json", (err, data) => {
     if (err) throw err;
 
-    const todos = JSON.parse(data);
-    res.render("home", { todos: todos });
+    const users = JSON.parse(data);
+    res.render("main", { users: users });
   });
 });
 
+app.get('/add', (req, res) => {
+  res.render('change')
+})
+
 app.post("/add", (req, res) => {
-  const formData = req.body;
 
-  if (formData.todo.trim() == "") {
-    fs.readFile("./data/todos.json", (err, data) => {
-      if (err) throw err;
-      const todos = JSON.parse(data);
+  const formCreate = req.body;
 
-      res.render("home", { error: true, todos: todos });
+  if (formCreate.name.trim() == "" || formCreate.email.trim() == "" || formCreate.age.trim() == null) {
+    fs.readFile("./data/db.json", (err, data) => {
+      if (err) alert(err);
+      const dbData = JSON.parse(data);
+
+      res.render("main", { error: true, dbData: dbData });
     });
   } else {
-    fs.readFile("./data/todos.json", (err, data) => {
+    fs.readFile("./data/db.json", (err, data) => {
       if (err) throw err;
 
-      const todos = JSON.parse(data);
+      const users = JSON.parse(data);
 
-      const todo = {
+      const user = {
         id: id(),
-        description: formData.todo,
-        done: false,
+        name: formCreate.name,
+        email: formCreate.email,
+        age: formCreate.age,
+        gender: formCreate.gender
       };
 
-      todos.push(todo);
-
-      fs.writeFile("./data/todos.json", JSON.stringify(todos), (err) => {
+      users.push(user);
+      console.log(user)
+      fs.writeFile("./data/db.json", JSON.stringify(users), (err) => {
         if (err) throw err;
 
-        fs.readFile("./data/todos.json", (err, data) => {
-          if (err) throw err;
-          const todos = JSON.parse(data);
+        fs.readFile("./data/db.json", (err, data) => {
+         if (err) throw err;
+         const users = JSON.parse(data);
 
-          res.render("home", { success: true, todos: todos });
+        res.render("main", { success: true, users: users });
         });
       });
     });
@@ -59,13 +66,13 @@ app.post("/add", (req, res) => {
 app.get("/:id/delete", (req, res) => {
   const id = req.params.id;
 
-  fs.readFile("./data/todos.json", (err, data) => {
+  fs.readFile("./data/db.json", (err, data) => {
     if (err) throw err;
 
     const todos = JSON.parse(data);
     const filterTodos = todos.filter((todo) => todo.id != id);
 
-    fs.writeFile("./data/todos.json", JSON.stringify(filterTodos), (err) => {
+    fs.writeFile("./data/db.json", JSON.stringify(filterTodos), (err) => {
       if (err) throw err;
 
       res.render("home", { todos: filterTodos, deleted: true });
@@ -76,7 +83,7 @@ app.get("/:id/delete", (req, res) => {
 app.get("/:id/update", (req, res) => {
     const id = req.params.id;
   
-    fs.readFile("./data/todos.json", (err, data) => {
+    fs.readFile("./data/db.json", (err, data) => {
       if (err) throw err;
   
         const todos = JSON.parse(data)
@@ -93,7 +100,7 @@ app.get("/:id/update", (req, res) => {
 
         todos.push(splicedTodo)
         
-        fs.writeFile('./data/todos.json', JSON.stringify(todos), (err) => {
+        fs.writeFile('./data/db.json', JSON.stringify(todos), (err) => {
             if(err) throw err
 
             res.render('home', {todos: todos})

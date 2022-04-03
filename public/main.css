@@ -4,14 +4,44 @@
     box-sizing: border-box;
 }
 .wrapper {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 50px auto;
 }
-
 .logo {
-    text-align: center;
-    font-size: 4rem;
+    font-size: 2rem;
+    margin: 2rem 5rem;
 }
+.header {
+    text-align: center;
+    font-size: 3rem;
+    margin: 0 0 2rem 0;
+}
+
+.add {
+    width: 8rem;
+    height: 3rem;
+    margin: 2rem 0 2rem 0;
+    font-size: 1.4rem;
+    text-decoration: none;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1CD000;
+    color: white;
+    border: 2px solid #fff;
+}
+
+.edit_img {
+    font-size: 2rem;
+    color: #1CD000;
+}
+
+.delete_img {
+    font-size: 2rem;
+    color: red;
+}
+
 .formCreate {
     width: 100%;
     display: flex;
@@ -37,21 +67,20 @@
     background: blue;
     font-size: white;
 }
-.todos {
-    margin-top: 25px;
-    border: 1px solid #ccc;
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
 }
 
-.todo {
-    padding: 10px;
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.todo:hover {
-    background-color: #eee;
+tr:hover:not(:first-child) {
+    background-color: #dddddd;
 }
 
 .error {
@@ -78,13 +107,4 @@
     padding: 5px 10px;
     background: tomato;
     color: #fff;
-}
-
-.done {
-    color: black;
-    text-decoration: line-through;
-}
-
-.undone {
-    text-decoration: none;
 }
