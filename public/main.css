@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.wrapper {
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+.logo {
+    text-align: center;
+    font-size: 4rem;
+}
+.formCreate {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name, .email {
+    display: inline-block;
+    padding: 10px;
+    font-size: 1.5rem;
+    width: 80%;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    width: 18%;
+    border: none;
+    outline: none;
+    background: blue;
+    font-size: white;
+}
+.todos {
+    margin-top: 25px;
+    border: 1px solid #ccc;
+}
+
+.todo {
+    padding: 10px;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo:hover {
+    background-color: #eee;
+}
+
+.error {
+    text-align: center;
+    color: red;
+    font-size: 1.4rem;
+    border: 1px solid red;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.success {
+    text-align: center;
+    color: green;
+    font-size: 1.4rem;
+    border: 1px solid green;
+    padding: 10px;
+    margin-bottom: 15rem;
+}
+
+.delete {
+    text-decoration: none;
+    font-size: .9rem;
+    padding: 5px 10px;
+    background: tomato;
+    color: #fff;
+}
+
+.done {
+    color: black;
+    text-decoration: line-through;
+}
+
+.undone {
+    text-decoration: none;
+}
