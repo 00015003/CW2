@@ -22,16 +22,16 @@ app.get('/add', (req, res) => {
   res.render('change')
 })
 
-app.post("/add", (req, res) => {
+app.post('/add', (req, res) => {
 
   const formCreate = req.body;
 
   if (formCreate.name.trim() == "" || formCreate.email.trim() == "" || formCreate.age.trim() == null) {
     fs.readFile("./data/db.json", (err, data) => {
-      if (err) alert(err);
+      if (err) throw(err);
       const dbData = JSON.parse(data);
 
-      res.render("main", { error: true, dbData: dbData });
+      res.render("change", { error: true, dbData: dbData });
     });
   } else {
     fs.readFile("./data/db.json", (err, data) => {
@@ -56,8 +56,9 @@ app.post("/add", (req, res) => {
          if (err) throw err;
          const users = JSON.parse(data);
 
-        res.render("main", { success: true, users: users });
+        res.render("change");
         });
+        res.redirect('/');
       });
     });
   }
@@ -69,49 +70,59 @@ app.get("/:id/delete", (req, res) => {
   fs.readFile("./data/db.json", (err, data) => {
     if (err) throw err;
 
-    const todos = JSON.parse(data);
-    const filterTodos = todos.filter((todo) => todo.id != id);
+    const users = JSON.parse(data);
+    const filterUser = users.filter((user) => user.id != id);
 
-    fs.writeFile("./data/db.json", JSON.stringify(filterTodos), (err) => {
+    fs.writeFile("./data/db.json", JSON.stringify(filterUser), (err) => {
       if (err) throw err;
-
-      res.render("home", { todos: filterTodos, deleted: true });
+      res.render('main', { users: filterUser, deleted: true });
     });
+    res.redirect('/');
   });
 });
 
-app.get("/:id/update", (req, res) => {
-    const id = req.params.id;
-  
-    fs.readFile("./data/db.json", (err, data) => {
-      if (err) throw err;
-  
-        const todos = JSON.parse(data)
-        const todo = todos.filter(todo => todo.id == req.params.id)[0]
-      
-        const todoIdx = todos.indexOf(todo)
-        const splicedTodo = todos.splice(todoIdx, 1)[0]
-      
-        if(todo.done == false) {
-            splicedTodo.done = true
-        }else {
-            splicedTodo.done = false
-        }
+app.get('/:id/update', (req, res) => {
+  fs.readFile("./data/db.json", (err, data) => {
+    if(err) throw error
 
-        todos.push(splicedTodo)
-        
-        fs.writeFile('./data/db.json', JSON.stringify(todos), (err) => {
-            if(err) throw err
+    const users = JSON.parse(data)
+    const user = users.filter(user => user.id == req.params.id)
+    res.render('change', {user: user})
+  })
+})
 
-            res.render('home', {todos: todos})
-            
-        })
-    
-    
-
-      
-    });
-  });
+//app.put("/:id/update", (req, res) => {
+//    const id = req.params.id;
+//  
+//    fs.readFile("./data/db.json", (err, data) => {
+//      if (err) throw err;
+//  
+//        const todos = JSON.parse(data)
+//        const todo = todos.filter(todo => todo.id == req.params.id)[0]
+//      
+//        const todoIdx = todos.indexOf(todo)
+//        const splicedTodo = todos.splice(todoIdx, 1)[0]
+//      
+//        if(todo.done == false) {
+//            splicedTodo.done = true
+//        }else {
+//            splicedTodo.done = false
+//        }
+//
+//        todos.push(splicedTodo)
+//        
+//        fs.writeFile('./data/db.json', JSON.stringify(todos), (err) => {
+//            if(err) throw err
+//
+//            res.render('home', {todos: todos})
+//            
+//        })
+//    
+//    
+//
+//      
+//    });
+//  });
 
 app.listen(PORT, (err) => {
   if (err) throw err;

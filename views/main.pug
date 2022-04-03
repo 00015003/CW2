@@ -13,16 +13,16 @@ block content
                         th Change
                         th Delete
                     each user in users
-                        tr 
+                        tr
                             td #{ user.name}
                             td #{ user.email}
                             td #{ user.age}
                             td #{ user.gender}
                             td
-                                a(href='#')
+                                a(href=`${ user.id}/update`)
                                     i.edit_img.fa-solid.fa-pen-to-square
                             td
-                                a(href="#")
+                                a(href=`${ user.id }/delete`)
                                     i.delete_img.fa-solid.fa-trash
         else
             p Please add some user to database 

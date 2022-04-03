@@ -1,22 +1,31 @@
 extends layout
 
 block content
-    if error
-        p.error Please fill the input
-    if success
-        p.success todo added
-    if deleted 
-        p.success Deleted
-    form.formCreate(action="/add", method="POST")
-        label(for='name') Name:
-        input.name(type='text', id='name' placeholder='John Doe' name='name')
-        label(for='email') Email:
-        input.email(type='email', id='email' placeholder='JohnDoe@gmail.com' name='email')
-        label(for='age') Age:
-        input.age(type='number', name='age', id='age', placeholder='20')
-        label Gender:
-            input.gender(type='radio', id='male', name='gender', value='male')
-            label(for='gender') Male
-            input.gender(type='radio', id='female', name='gender', value='female')
-            label(for='gender') Female
-        button.btn Add
+    if user == null 
+        form.formCreate(method="POST")
+            label(for='name') Name:
+            input.name(type='text', id='name' placeholder='John Doe' name='name')
+            label(for='email') Email:
+            input.email(type='email', id='email' placeholder='JohnDoe@gmail.com' name='email')
+            label(for='age') Age:
+            input.age(type='number', name='age', id='age', placeholder='20')
+            label Gender:
+                input.gender(type='radio', id='male', name='gender', value='male')
+                label(for='gender') Male
+                input.gender(type='radio', id='female', name='gender', value='female')
+                label(for='gender') Female
+            button.btn Add
+    else
+        form.formCreate(method="POST")
+            label(for='name') Name:
+            input.name(type='text', id='name' placeholder='John Doe' name='name' value=`${user.name}`)
+            label(for='email') Email:
+            input.email(type='email', id='email' placeholder='JohnDoe@gmail.com' name='email' value=`${user.email}`)
+            label(for='age') Age:
+            input.age(type='number', name='age', id='age', placeholder='20' value=`${Number(user.age)}.`)
+            label Gender:
+                input.gender(type='radio', id='male', name='gender', value='male' checked=`${user.gender === "male"}`)
+                label(for='gender') Male
+                input.gender(type='radio', id='female', name='gender', value='female' checked=`${user.gender === "female"}`)
+                label(for='gender') Female
+            button.btn Save
