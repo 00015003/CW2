@@ -30,4 +30,9 @@ node app
 https://github.com/00015003/CW2.git 
 
 ### LInk to Application on Heroku
+https://cw2-00015013.herokuapp.com/ 
+
+### LInk to Application on Glitch
+https://possible-octagonal-evening.glitch.me/ 
+
 
