@@ -29,5 +29,5 @@ node app
 #### Link to github repo
 https://github.com/00015003/CW2.git 
 
-### LInk to Application on Glitch
+### LInk to Application on Heroku
 
