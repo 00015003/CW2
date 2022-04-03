@@ -157,6 +157,11 @@ tr:hover:not(:first-child) {
     transition: .5s;
 }
 
+.error {
+    color: red;
+    font-size: 2rem;
+}
+
 .workers_btn:hover {
     background-color: #1CD000;
     opacity: 0.9;

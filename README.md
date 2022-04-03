@@ -5,7 +5,7 @@ The Workerks Management Application is built to add, update and remove workers b
 #### Instructions
 1. Download the source code
 ``` bash
-
+ https://github.com/00015003/CW2.git 
 ```
 
 or just download the *.zip file
@@ -27,6 +27,7 @@ node app
 - pug
 
 #### Link to github repo
-
+https://github.com/00015003/CW2.git 
 
 ### LInk to Application on Glitch
+

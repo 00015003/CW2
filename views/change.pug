@@ -1,6 +1,10 @@
 extends layout
 
 block content
+    if error 
+            p.error Please, fill out all the inputs
+            br
+            br
     if worker == null 
         form.formCreate(method="POST")
             label(for='name') Name:

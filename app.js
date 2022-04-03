@@ -30,7 +30,7 @@ app.post('/add', (req, res) => {
 
   const formCreate = req.body;
 
-  if (formCreate.name.trim() == "" || formCreate.email.trim() == "" || formCreate.age.trim() == null) {
+  if (formCreate.name.trim() == "" || formCreate.email.trim() == "" || formCreate.age.trim() == null || formCreate.gender == null) {
     fs.readFile("./data/db.json", (err, data) => {
       if (err) throw(err);
       const dbData = JSON.parse(data);
@@ -95,8 +95,18 @@ app.get('/:id/update', (req, res) => {
 })
 
 app.post("/:id/update", (req, res) => {
+
+  const formCreate = req.body;
+
+  if (formCreate.name.trim() == "" || formCreate.email.trim() == "" || formCreate.age.trim() == null || formCreate.gender == null) {
+    fs.readFile("./data/db.json", (err, data) => {
+      if (err) throw(err);
+      const dbData = JSON.parse(data);
+
+      res.render("change", { error: true, dbData: dbData });
+    })
+  } else {
     const id = req.params.id;
-  
     fs.readFile("./data/db.json", (err, data) => {
       if (err) throw err;
 
@@ -107,10 +117,10 @@ app.post("/:id/update", (req, res) => {
 
       worker = {
         id: id,
-        name: req.body.name,
-        email: req.body.email,
-        age: req.body.age,
-        gender: req.body.gender
+        name: formCreate.name,
+        email: formCreate.email,
+        age: formCreate.age,
+        gender: formCreate.gender
       };
 
       updated.push(worker);
@@ -125,7 +135,8 @@ app.post("/:id/update", (req, res) => {
         res.redirect('/workers');
       });
     });
-  });
+  }
+});
 
 app.listen(PORT, (err) => {
   if (err) throw err;
