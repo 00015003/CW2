@@ -10,11 +10,15 @@ app.use("/static", express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
+  res.render("main");
+});
+
+app.get("/workers", (req, res) => {
   fs.readFile("./data/db.json", (err, data) => {
     if (err) throw err;
 
     const users = JSON.parse(data);
-    res.render("main", { users: users });
+    res.render("workers", { users: users });
   });
 });
 
@@ -58,7 +62,7 @@ app.post('/add', (req, res) => {
 
         res.render("change");
         });
-        res.redirect('/');
+        res.redirect('/workers');
       });
     });
   }
@@ -86,43 +90,44 @@ app.get('/:id/update', (req, res) => {
     if(err) throw error
 
     const users = JSON.parse(data)
-    const user = users.filter(user => user.id == req.params.id)
+    const user = users.filter(user => user.id == req.params.id)[0]
     res.render('change', {user: user})
+    console.log(user)
   })
 })
 
-//app.put("/:id/update", (req, res) => {
-//    const id = req.params.id;
-//  
-//    fs.readFile("./data/db.json", (err, data) => {
-//      if (err) throw err;
-//  
-//        const todos = JSON.parse(data)
-//        const todo = todos.filter(todo => todo.id == req.params.id)[0]
-//      
-//        const todoIdx = todos.indexOf(todo)
-//        const splicedTodo = todos.splice(todoIdx, 1)[0]
-//      
-//        if(todo.done == false) {
-//            splicedTodo.done = true
-//        }else {
-//            splicedTodo.done = false
-//        }
-//
-//        todos.push(splicedTodo)
-//        
-//        fs.writeFile('./data/db.json', JSON.stringify(todos), (err) => {
-//            if(err) throw err
-//
-//            res.render('home', {todos: todos})
-//            
-//        })
-//    
-//    
-//
-//      
-//    });
-//  });
+app.post("/:id/update", (req, res) => {
+    const id = req.params.id;
+  
+    fs.readFile("./data/db.json", (err, data) => {
+      if (err) throw err;
+
+      const users = JSON.parse(data);
+      const updated = users.filter(user => user.id != id) || []
+
+      let user = users.filter(user => user.id == id)[0]
+
+      user = {
+        id: id,
+        name: req.body.name,
+        email: req.body.email,
+        age: req.body.age,
+        gender: req.body.gender
+      };
+
+      updated.push(user);
+      fs.writeFile("./data/db.json", JSON.stringify(updated), (err) => {
+        if (err) throw err;
+
+        fs.readFile("./data/db.json", (err, data) => {
+         if (err) throw err;
+
+        res.render("main");
+        });
+        res.redirect('/');
+      });
+    });
+  });
 
 app.listen(PORT, (err) => {
   if (err) throw err;

@@ -1,1 +1,16 @@
-[{"id":"_j7o0vkja4","name":"asdad","email":"asdlasmdlaskdm@gamkl.asd","age":"21","gender":"female"},{"id":"_jw0e23gkc","name":"asdasd","email":"sarvar.bek.790@gmail.com","age":"11","gender":"male"},{"id":"_r1tfflx63","name":"asdasd","email":"asdasd@gmail.com","age":"11","gender":"male"},{"id":"_nir6nup9u","name":"asdasd","email":"asdlasmdlaskdm@gamkl.asd","age":"21","gender":"male"}]
+[
+    {
+        "id": "_nir6nup9u",
+        "name": "Sarvarbek",
+        "email": "sarvar.bek.790@gmail.com",
+        "age": "20",
+        "gender": "male"
+    },
+    {
+        "id": "_p2ipcqrp6",
+        "name": "Sa",
+        "email": "sarvar.bek.790@gmail.com",
+        "age": "20",
+        "gender": "male"
+    }
+]

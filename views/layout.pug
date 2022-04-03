@@ -5,8 +5,20 @@ html(lang="en")
         link(rel="stylesheet", href="/static/main.css")
         link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css')
     body
-        a.logo(href="/") 123
-            span.logo_text Company
+        .navbar
+            a.logo(href="/") 123
+                span.logo_text Company
+            nav.nav
+                ul
+                    li 
+                        a(href="/") Home
+                    li 
+                        a(href="add") Create
+                    li 
+                        a(href="/workers") See all
+
         .wrapper
-            h1.header USER MANEGEMENT SYSTEM
             block content
+
+        .footer
+            
